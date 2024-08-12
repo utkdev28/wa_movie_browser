@@ -22,10 +22,19 @@
   width: 100%;
 }
 
-.movielistdiv{
+.movierowlistdiv{
   display: flex;
   justify-content: space-evenly;
 }
+.MovieColumndiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* .movieContainerdiv{
+  display: flex;
+
+} */
 /* 
 .inidividualmovies{
   background-color: aqua;

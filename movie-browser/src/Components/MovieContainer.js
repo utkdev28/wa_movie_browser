@@ -1,5 +1,7 @@
-import Card from "./MovieCard";
+import { useEffect, useState } from "react";
 import MoviesRowList from "./MovieRowList";
+import fireRequest from "../Ajax/executeAjax";
+import { WaPrepareURLs } from "../Ajax/waPrepareURL";
 
 const movies = [
     { title: 'MCU', content: 'false', id: 1 },
@@ -15,13 +17,38 @@ const movies = [
 export default function MovieContainer(){
     const result =[] ;
     let idx = 0
-    while(movies.length > idx ){
-        result.push(
-            <MoviesRowList
-                key={idx}
-                JSON={movies.slice(idx,idx+3)}
-            ></MoviesRowList>);
-        idx+=3;
+    
+    const [card,setCard] = useState({'page':1,'results':[]});
+
+    const getData = async ()=>{
+        try {
+            const obj = WaPrepareURLs('list')
+            const JSONdata = await fireRequest(obj.url,obj.options);
+            console.log(JSONdata);
+            setCard(JSONdata)
+        } catch (error) {
+            setCard({
+                'page' :1,
+                'results' :movies
+            })
+        }
+        
+        // setCard(JSONdata)
+        // const resp = await 
     }
-    return result;
+
+    useEffect(()=>{
+        getData();
+    },[]);
+
+    // while(movies.length > idx ){
+        // result.push(
+            
+        // idx+=3;
+    // }
+    return (
+        <>
+            <MoviesRowList JSON={card}></MoviesRowList>
+        </>
+    );
 }
