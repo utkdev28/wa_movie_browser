@@ -1,0 +1,36 @@
+.App{
+  width: 100%;
+  height: 100%;
+}
+.App-footer{
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(183, 203, 241);
+}
+.App-header{
+  top: 0;
+  position: fixed;  
+  width: 100%;
+  text-align: center;
+  background-color: rgb(183, 203, 241);
+}
+.App-body{
+  position: absolute;
+  top: 15vh;
+  width: 100%;
+}
+
+.movielistdiv{
+  display: flex;
+  justify-content: space-evenly;
+}
+/* 
+.inidividualmovies{
+  background-color: aqua;
+  border: 2px black solid;
+} */
+/* .movielistouterflex{
+  display: flex;
+}  */
