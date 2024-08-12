@@ -5,7 +5,7 @@ export default function MoviesColumnList({JSON}) {
         <Card
             key={i}
             title={mid.title}
-            content={mid.overview}
+            content={"Year of Release :" + mid.release_date.split('-')[0]}
             imageUrl={mid.backdrop_path}>
         </Card>
     );
