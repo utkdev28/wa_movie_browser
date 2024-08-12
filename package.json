@@ -1,0 +1,11 @@
+{
+  "name": "wa_movie_browser",
+  "version": "1.0.0",
+  "description": "A react application of movie browser with data from TMDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Utkarsh Gupta",
+  "license": "ISC"
+}
