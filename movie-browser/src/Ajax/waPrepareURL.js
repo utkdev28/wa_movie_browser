@@ -1,5 +1,5 @@
 import config from './ajaxconfig'
-export function WaPrepareURLs(type,page=1){
+export function WaPrepareURLs(type,page=1,queryVal){
     let url;
     let options
     switch(type){
@@ -10,6 +10,15 @@ export function WaPrepareURLs(type,page=1){
                 method: config.methods_supported[0],
                 headers: config.header
             };
+            break;
+        }
+        case "query":{
+            url = config.base_url.split('3/')[0] + `3/search/movie?query=${queryVal}&page=${page}`;
+            options = {
+                method: config.methods_supported[0],
+                headers: config.header
+            };
+            break;
         }
     }
     return {url,options};

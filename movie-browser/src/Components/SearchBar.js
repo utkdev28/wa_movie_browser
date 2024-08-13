@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import '../css/search.css'
+import { WaPrepareURLs } from "../Ajax/waPrepareURL";
+import fireRequest from "../Ajax/executeAjax";
 
 export default function(){
     const [searchVal,setsearchVal] = useState("")
@@ -13,12 +15,16 @@ export default function(){
 
     // tried debouncing
     useEffect(()=>{
+        let searchVal = document.getElementsByClassName('myInput')[0].value;
         if(searchVal == "" || searchVal == null || isrunnig)
             return;
         else{
             setisrunning(true);
-            window.setTimeout(()=>{
-                console.log(document.getElementsByClassName('myInput')[0].value);
+            window.setTimeout(async()=>{
+                searchVal = document.getElementsByClassName('myInput')[0].value;
+                const obj = WaPrepareURLs('query',1,searchVal);
+                const jsondata = await fireRequest(obj.url,obj.options) 
+                console.log("search Data" + jsondata);       
                 setisrunning(false);
             },600)
         }
@@ -26,10 +32,7 @@ export default function(){
     return(
         <>
             <input className="myInput" type="text" onChange={onValueChangeFunction}/>
-            <button type="submit" className="searchButton">
-                <i class="fa fa-search"></i>
-
-            </button>
+            <button type="submit" className="searchButton"></button>
         </>
     );
 }
