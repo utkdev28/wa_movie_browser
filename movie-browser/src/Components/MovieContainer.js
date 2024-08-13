@@ -15,8 +15,6 @@ const movies = [
     { title: 'Deedpool3', content: 'true', id: 3 },
 ];
 export default function MovieContainer(){
-    const result =[] ;
-    let idx = 0;
     const [page,setPage] = useState(1);
     const [card,setCard] = useState([]);
 
