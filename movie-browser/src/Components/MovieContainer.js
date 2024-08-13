@@ -16,21 +16,18 @@ const movies = [
 ];
 export default function MovieContainer(){
     const result =[] ;
-    let idx = 0
-    
-    const [card,setCard] = useState({'page':1,'results':[]});
+    let idx = 0;
+    const [page,setPage] = useState(1);
+    const [card,setCard] = useState([]);
 
-    const getData = async ()=>{
+    const getData = async (page)=>{
         try {
-            const obj = WaPrepareURLs('list')
+            const obj = WaPrepareURLs('list',page)
             const JSONdata = await fireRequest(obj.url,obj.options);
             console.log(JSONdata);
-            setCard(JSONdata)
+            setCard((prevdata)=>[...prevdata, ...(JSONdata.results)])
         } catch (error) {
-            setCard({
-                'page' :1,
-                'results' :movies
-            })
+            setCard([movies])
         }
         
         // setCard(JSONdata)
@@ -38,8 +35,18 @@ export default function MovieContainer(){
     }
 
     useEffect(()=>{
-        getData();
-    },[]);
+        getData(page);
+        function handleScroll(){
+            if(window.innerHeight + document.documentElement.scrollTop + 2 >= document.documentElement.scrollHeight){
+                setPage((prev)=>prev+1);
+            }
+        }
+        window.addEventListener("scroll",handleScroll);
+        // return function(){window.removeEventListener("scroll",handleScroll)};
+    },[page]);
+
+
+
 
     // while(movies.length > idx ){
         // result.push(
