@@ -13,7 +13,7 @@ export default function App() {
         <Body/>
       </body>
       <footer className='App-footer'>
-        <p>I am footer</p>
+        <p>Browse your favourite movies on TMBD by Utkarsh </p>
       </footer>
     </div>
   );

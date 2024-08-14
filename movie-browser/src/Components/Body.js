@@ -5,7 +5,6 @@ import SearchBar from "./SearchBar"
 export default function Body(){
     const [issearch,setissearch] = useState(false);
     const [issearchRunning,setissearchRunning] = useState(false);
-    // if(issearch){
       return (
         <>
           <div className="searchWrapper">
@@ -16,8 +15,4 @@ export default function Body(){
           </div>
         </>
       )
-    //   )
-    // }else{
-    //   <SearchBar search={issearch} fun={setissearch}/>
-    // }
 };

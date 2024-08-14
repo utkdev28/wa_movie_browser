@@ -17,8 +17,12 @@ const movies = [
 export default function MovieContainer({search,searching,fun,fun2}){
     const [page,setPage] = useState(1);
     const [card,setCard] = useState([]);
-    // const [isrunnig,setisrunning] = useState(false);
+    const [dataFound,setDataFound] = useState(true);
+    const [oopsshow,setoopshsow] = useState({
+        'display': 'none'
+    })
 
+    // Main method loading screen Data for search, home ,intial load
     const getData = async (page)=>{
         try {
             let obj;
@@ -31,41 +35,32 @@ export default function MovieContainer({search,searching,fun,fun2}){
             console.log(JSONdata);
             if(search){
                 setCard(JSONdata.results);
-                // fun(false);
                 fun2(false);
             }else{
-                debugger;
-                try {
-                    setCard((prevdata)=>[...(JSONdata.results), ...prevdata])
-                } catch (error) {
-                    debugger;
-                }
-                
+                setCard((prevdata)=>[...(JSONdata.results), ...prevdata])
+            }
+            // if no data found Screen with OOPs
+            if(JSONdata.results.length ==0){
+                setDataFound(false);
+                setoopshsow({
+                    'display':'block'
+                })
+            }else{
+                setoopshsow({
+                    'display':'none'
+                })
             }
                 
         } catch (error) {
             setCard([movies])
         }
-        
-        // setCard(JSONdata)
-        // const resp = await 
     }
-
+    // useEffect hook for page change and searching
     useEffect(()=>{
         let searchVal = document.getElementsByClassName('myInput')[0].value;
         if(search && (searchVal == "" || searchVal == null )){
-            // fun(false);
             return;
         }
-        // else{
-        //     // setisrunning(true);
-        //     window.setTimeout(async()=>{
-        //         searchVal = document.getElementsByClassName('myInput')[0].value;
-        //         getData(page)
-        //         // setisrunning(false);
-        //     })
-        // }
-
         getData(page);
         function handleScroll(){
             if(window.innerHeight + document.documentElement.scrollTop + 2 >= document.documentElement.scrollHeight){
@@ -73,20 +68,11 @@ export default function MovieContainer({search,searching,fun,fun2}){
             }
         }
         window.addEventListener("scroll",handleScroll);
-        // return function(){window.removeEventListener("scroll",handleScroll)};
     },[page,search]);
-
-
-
-
-    // while(movies.length > idx ){
-        // result.push(
-            
-        // idx+=3;
-    // }
     return (
         <>
             <MoviesRowList JSON={card}></MoviesRowList>
+            <h1 style={oopsshow}>OPPS!!! No data Found in Database</h1>
         </>
     );
 }
