@@ -28,3 +28,13 @@
     cursor: pointer;
     font-size: 20px;
 }
+.homeButton{
+    height: 36px;
+    border: 1px solid #00b4cc;
+    background: #00b4cc;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    font-size: 20px;
+}

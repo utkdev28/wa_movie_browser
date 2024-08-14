@@ -14,16 +14,35 @@ const movies = [
     { title: 'Marvel3', content: 'false', id: 2 },
     { title: 'Deedpool3', content: 'true', id: 3 },
 ];
-export default function MovieContainer(){
+export default function MovieContainer({search,searching,fun,fun2}){
     const [page,setPage] = useState(1);
     const [card,setCard] = useState([]);
+    // const [isrunnig,setisrunning] = useState(false);
 
     const getData = async (page)=>{
         try {
-            const obj = WaPrepareURLs('list',page)
+            let obj;
+            if(search){
+                const searchVal = document.getElementsByClassName('myInput')[0].value;
+                obj = WaPrepareURLs('query',page,searchVal);
+            }else
+                obj = WaPrepareURLs('list',page)
             const JSONdata = await fireRequest(obj.url,obj.options);
             console.log(JSONdata);
-            setCard((prevdata)=>[...prevdata, ...(JSONdata.results)])
+            if(search){
+                setCard(JSONdata.results);
+                // fun(false);
+                fun2(false);
+            }else{
+                debugger;
+                try {
+                    setCard((prevdata)=>[...(JSONdata.results), ...prevdata])
+                } catch (error) {
+                    debugger;
+                }
+                
+            }
+                
         } catch (error) {
             setCard([movies])
         }
@@ -33,6 +52,20 @@ export default function MovieContainer(){
     }
 
     useEffect(()=>{
+        let searchVal = document.getElementsByClassName('myInput')[0].value;
+        if(search && (searchVal == "" || searchVal == null )){
+            // fun(false);
+            return;
+        }
+        // else{
+        //     // setisrunning(true);
+        //     window.setTimeout(async()=>{
+        //         searchVal = document.getElementsByClassName('myInput')[0].value;
+        //         getData(page)
+        //         // setisrunning(false);
+        //     })
+        // }
+
         getData(page);
         function handleScroll(){
             if(window.innerHeight + document.documentElement.scrollTop + 2 >= document.documentElement.scrollHeight){
@@ -41,7 +74,7 @@ export default function MovieContainer(){
         }
         window.addEventListener("scroll",handleScroll);
         // return function(){window.removeEventListener("scroll",handleScroll)};
-    },[page]);
+    },[page,search]);
 
 
 
