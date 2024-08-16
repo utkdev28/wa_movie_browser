@@ -27,11 +27,13 @@
 .movierowlistdiv{
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 .MovieColumndiv{
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
 }
 /* .movieContainerdiv{
   display: flex;
